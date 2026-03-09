@@ -15,6 +15,9 @@ from datetime import datetime, date, timedelta
 # 🔐 CONFIGURATION
 # =============================================
 
+USER1_NAME = st.secrets["names"]["user1"]
+USER2_NAME = st.secrets["names"]["user2"]
+
 USERS_DB = {
     st.secrets["passwords"]["user1_pass"]: USER1_NAME,
     st.secrets["passwords"]["user2_pass"]: USER2_NAME
@@ -29,8 +32,8 @@ COUPLE_NAMES = [USER1_NAME, USER2_NAME]
 TELEGRAM_BOT_TOKEN = st.secrets["telegram"]["bot_token"]
 
 RECIPIENTS = {
-    "User 1": st.secrets["telegram"]["user1_id"],
-    "User 2": st.secrets["telegram"]["user2_id"]
+    USER1_NAME: st.secrets["telegram"]["user1_id"],
+    USER2_NAME: st.secrets["telegram"]["user2_id"]
 }
 
 # --- 🎮 GAMIFICATION MILESTONES ---
