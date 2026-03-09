@@ -371,7 +371,7 @@ def local_css():
 # =============================================
 def get_gspread_client():
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    # Kod Baru: Tarik data dari Streamlit Secrets, bukan fail fizikal
+   
     creds_dict = dict(st.secrets["gcp_service_account"])
     creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
     return gspread.authorize(creds)
