@@ -15,21 +15,21 @@ from datetime import datetime, date, timedelta
 # 🔐 CONFIGURATION
 # =============================================
 USERS_DB = {
-    "Amiraniq@#*2468": "Amir Aniq",
-    "Noratiah123": "Nor Atiah"
+    st.secrets["passwords"]["user1_pass"]: "User 1",
+    st.secrets["passwords"]["user2_pass"]: "User 2"
 }
 
 SHEET_NAME = "Tabung Kahwin Database"
 TARGET_AMOUNT = 30000
 WEDDING_DATE = date(2027, 12, 31)
-COUPLE_NAMES = ["Amir Aniq", "Nor Atiah"]
+COUPLE_NAMES = ["User 1", "User 2"]
 
 # --- 📲 TELEGRAM CONFIGURATION ---
-TELEGRAM_BOT_TOKEN = "7521731711:AAEvNI-CkzYx8Mf54VE9sPUhdi9hhZ8t2yE" 
+TELEGRAM_BOT_TOKEN = st.secrets["telegram"]["bot_token"]
 
 RECIPIENTS = {
-    "Amir": "829900179",
-    "Atiah": "832957784" 
+    "User 1": st.secrets["telegram"]["user1_id"],
+    "User 2": st.secrets["telegram"]["user2_id"]
 }
 
 # --- 🎮 GAMIFICATION MILESTONES ---
@@ -59,11 +59,10 @@ def send_telegram_alert(name, amount, total_now):
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
     
     for person, chat_id in RECIPIENTS.items():
-        if chat_id != "MASUKKAN_ID_ATIAH": 
-            try: 
-                import requests
-                requests.post(url, data={"chat_id": chat_id, "text": msg, "parse_mode": "Markdown"})
-            except: pass
+        try: 
+            import requests
+            requests.post(url, data={"chat_id": chat_id, "text": msg, "parse_mode": "Markdown"})
+        except: pass
 
 def get_current_milestone(amount):
     """Get the current milestone based on amount"""
@@ -477,7 +476,7 @@ def main():
     <div style='text-align: center; width: 100%; margin-top: -10px; margin-bottom: 20px;'>
         <p style='font-family: "Playfair Display", serif; color: #888; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 5px;'>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</p>
         <div style='font-family: "Playfair Display", serif; font-weight: 700; font-size: 3.5rem; color: #2E5834; text-shadow: 0 4px 10px rgba(0,0,0,0.05);'>
-            Amir Aniq <span style='color: #C5A059; font-style: italic;'>&</span> Nor Atiah
+            User 1 <span style='color: #C5A059; font-style: italic;'>&</span> User 2
         </div>
     </div>
     """, unsafe_allow_html=True)
