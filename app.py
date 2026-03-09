@@ -14,15 +14,16 @@ from datetime import datetime, date, timedelta
 # =============================================
 # 🔐 CONFIGURATION
 # =============================================
+
 USERS_DB = {
-    st.secrets["passwords"]["user1_pass"]: "User 1",
-    st.secrets["passwords"]["user2_pass"]: "User 2"
+    st.secrets["passwords"]["user1_pass"]: USER1_NAME,
+    st.secrets["passwords"]["user2_pass"]: USER2_NAME
 }
 
 SHEET_NAME = "Tabung Kahwin Database"
 TARGET_AMOUNT = 30000
 WEDDING_DATE = date(2027, 12, 31)
-COUPLE_NAMES = ["User 1", "User 2"]
+COUPLE_NAMES = [USER1_NAME, USER2_NAME]
 
 # --- 📲 TELEGRAM CONFIGURATION ---
 TELEGRAM_BOT_TOKEN = st.secrets["telegram"]["bot_token"]
@@ -472,11 +473,11 @@ def main():
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("""
+    st.markdown(f"""
     <div style='text-align: center; width: 100%; margin-top: -10px; margin-bottom: 20px;'>
         <p style='font-family: "Playfair Display", serif; color: #888; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 5px;'>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</p>
         <div style='font-family: "Playfair Display", serif; font-weight: 700; font-size: 3.5rem; color: #2E5834; text-shadow: 0 4px 10px rgba(0,0,0,0.05);'>
-            User 1 <span style='color: #C5A059; font-style: italic;'>&</span> User 2
+            {USER1_NAME} <span style='color: #C5A059; font-style: italic;'>&</span> {USER2_NAME}
         </div>
     </div>
     """, unsafe_allow_html=True)
