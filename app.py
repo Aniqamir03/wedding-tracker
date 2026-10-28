@@ -1,6 +1,6 @@
 # =============================================
 # 💍 WEDDING FUND TRACKER: NATIVE PRO UI (iOS GLASS EDITION)
-# FEATURES: iOS VISION GLASSMORPHISM • CUSTOM CSS TABS • NO INSTALL REQUIRED
+# FEATURES: iOS VISION GLASSMORPHISM • COUPLE AVATAR • CUSTOM CSS TABS
 # =============================================
 
 import streamlit as st
@@ -17,6 +17,13 @@ from datetime import datetime, date, timedelta
 
 USER1_NAME = st.secrets["names"]["user1"]
 USER2_NAME = st.secrets["names"]["user2"]
+
+# Tarik URL gambar dari Secrets (Dengan Fallback Automatik jika belum diset)
+DEFAULT_AVATAR_1 = f"https://ui-avatars.com/api/?name={USER1_NAME.replace(' ', '+')}&background=4F7942&color=fff&size=256&bold=true"
+DEFAULT_AVATAR_2 = f"https://ui-avatars.com/api/?name={USER2_NAME.replace(' ', '+')}&background=C5A059&color=fff&size=256&bold=true"
+
+USER1_PHOTO = st.secrets.get("photos", {}).get("user1_photo", DEFAULT_AVATAR_1)
+USER2_PHOTO = st.secrets.get("photos", {}).get("user2_photo", DEFAULT_AVATAR_2)
 
 USERS_DB = {
     st.secrets["passwords"]["user1_pass"]: USER1_NAME,
@@ -119,7 +126,7 @@ def local_css():
         color: var(--text-color); 
     }
     
-    /* iOS AMBIENT MESH BACKGROUND (Supaya efek kaca nampak hidup) */
+    /* iOS AMBIENT MESH BACKGROUND */
     .stApp {
         background-color: #EBF4EC;
         background-image: 
@@ -185,7 +192,6 @@ def local_css():
         flex-wrap: wrap;
     }
 
-    /* Butang Tab (Belum Select) */
     .stTabs [data-baseweb="tab"] {
         background-color: transparent;
         border: none;
@@ -197,21 +203,18 @@ def local_css():
         transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
-    /* Butang Tab (Bila Hover) */
     .stTabs [data-baseweb="tab"]:hover {
         background-color: rgba(255, 255, 255, 0.55);
         color: var(--sage-dark);
         transform: translateY(-1px);
     }
 
-    /* Butang Tab (SELECTED - AKTIF) */
     .stTabs [aria-selected="true"] {
         background: linear-gradient(180deg, #5d8c4e 0%, var(--sage-primary) 100%) !important;
         color: white !important;
         box-shadow: 0 6px 16px rgba(79, 121, 66, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.45);
     }
 
-    /* REMOVE DEFAULT RED LINE */
     .stTabs [data-baseweb="tab-highlight"] {
         display: none;
     }
@@ -219,15 +222,74 @@ def local_css():
     /* ANIMATIONS */
     @keyframes pulse-glow {
         0% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(197, 160, 89, 0)); }
-        50% { transform: scale(1.08); filter: drop-shadow(0 6px 14px rgba(197, 160, 89, 0.45)); }
+        50% { transform: scale(1.1); filter: drop-shadow(0 6px 15px rgba(197, 160, 89, 0.5)); }
         100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(197, 160, 89, 0)); }
     }
     
-    .header-ring {
-        font-size: 80px;
+    /* 👩‍❤️‍👨 COUPLE AVATAR HEADER (iOS GLASS HALO) 👩‍❤️‍👨 */
+    .couple-avatar-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 28px;
+        margin: 12px 0 14px 0;
+    }
+
+    .avatar-glass-halo {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        padding: 5px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.35) 100%);
+        backdrop-filter: blur(18px) saturate(190%);
+        -webkit-backdrop-filter: blur(18px) saturate(190%);
+        border: 1.5px solid rgba(255, 255, 255, 0.95);
+        box-shadow: 
+            0 14px 30px -6px rgba(46, 88, 52, 0.18), 
+            inset 0 2px 3px rgba(255, 255, 255, 1),
+            0 0 0 4px rgba(255, 255, 255, 0.25);
+        transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    .avatar-glass-halo.gold-tint {
+        box-shadow: 
+            0 14px 30px -6px rgba(197, 160, 89, 0.22), 
+            inset 0 2px 3px rgba(255, 255, 255, 1),
+            0 0 0 4px rgba(255, 255, 255, 0.25);
+    }
+
+    .avatar-glass-halo:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 
+            0 18px 36px -6px rgba(46, 88, 52, 0.26), 
+            inset 0 2px 4px rgba(255, 255, 255, 1),
+            0 0 0 6px rgba(255, 255, 255, 0.45);
+    }
+
+    .avatar-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+    }
+
+    .header-ring-center {
+        font-size: 56px;
         display: inline-block;
         animation: pulse-glow 3s infinite ease-in-out;
-        margin-bottom: 10px;
+        user-select: none;
+    }
+
+    /* Responsif untuk Skrin Telefon */
+    @media (max-width: 600px) {
+        .couple-avatar-row { gap: 16px; }
+        .avatar-glass-halo { width: 76px; height: 76px; padding: 4px; }
+        .header-ring-center { font-size: 42px; }
+        .couple-names-title { font-size: 2.3rem !important; }
     }
 
     @keyframes bounce {
@@ -244,9 +306,6 @@ def local_css():
         filter: drop-shadow(0 8px 12px rgba(0,0,0,0.08));
     }
 
-    /* HEADER TEXT - FORCED CENTER */
-    .header-container { text-align: center; margin-bottom: 20px; margin-top: -20px; }
-    
     /* 💎 CORE iOS GLASS CARD 💎 */
     .glass-card {
         background: var(--ios-glass-bg);
@@ -550,7 +609,6 @@ def predict_completion(df, target):
 # 🚀 MAIN APP
 # =============================================
 def main():
-    # Aktifkan iOS Glass CSS dari mula (termasuk skrin Login)
     local_css()
 
     if 'logged_in' not in st.session_state: st.session_state.logged_in = False
@@ -625,19 +683,21 @@ def main():
             st.rerun()
 
     # =============================================
-    # 💍 HEADER SECTION
+    # 💍 HEADER SECTION (PILIHAN A: COUPLE AVATAR + RING)
     # =============================================
-    
-    st.markdown("""
-    <div style='text-align: center;'>
-        <div class='header-ring'>💍</div>
-    </div>
-    """, unsafe_allow_html=True)
-
     st.markdown(f"""
-    <div style='text-align: center; width: 100%; margin-top: -10px; margin-bottom: 20px;'>
-        <p style='font-family: "Playfair Display", serif; color: #5f6b61; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 5px;'>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</p>
-        <div style='font-family: "Playfair Display", serif; font-weight: 700; font-size: 3.5rem; color: #2E5834; text-shadow: 0 4px 15px rgba(255,255,255,0.6);'>
+    <div style='text-align: center; width: 100%; margin-top: -10px; margin-bottom: 24px;'>
+        <p style='font-family: "Playfair Display", serif; color: #5f6b61; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px;'>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</p>
+        <div class='couple-avatar-row'>
+            <div class='avatar-glass-halo'>
+                <img src='{USER1_PHOTO}' class='avatar-img' alt='{USER1_NAME}' onerror="this.onerror=null;this.src='{DEFAULT_AVATAR_1}';">
+            </div>
+            <div class='header-ring-center'>💍</div>
+            <div class='avatar-glass-halo gold-tint'>
+                <img src='{USER2_PHOTO}' class='avatar-img' alt='{USER2_NAME}' onerror="this.onerror=null;this.src='{DEFAULT_AVATAR_2}';">
+            </div>
+        </div>
+        <div class='couple-names-title' style='font-family: "Playfair Display", serif; font-weight: 700; font-size: 3.3rem; color: #2E5834; text-shadow: 0 4px 15px rgba(255,255,255,0.65);'>
             {USER1_NAME} <span style='color: #C5A059; font-style: italic;'>&</span> {USER2_NAME}
         </div>
     </div>
