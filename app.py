@@ -275,8 +275,9 @@ def local_css():
         object-fit: cover;
         object-position: center;
         display: block;
+        transform: scale(2.25); /* ⬅️ TUKAR DI SINI UNTUK ZOOM */
     }
-
+    
     .header-ring-center {
         font-size: 56px;
         display: inline-block;
