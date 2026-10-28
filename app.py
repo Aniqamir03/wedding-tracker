@@ -275,7 +275,7 @@ def local_css():
         object-fit: cover;
         object-position: center;
         display: block;
-        transform: scale(2.25); /* ⬅️ TUKAR DI SINI UNTUK ZOOM */
+        transform: scale(1.25); /* ⬅️ TUKAR DI SINI UNTUK ZOOM */
     }
     
     .header-ring-center {
