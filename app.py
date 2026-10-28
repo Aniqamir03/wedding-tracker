@@ -1,6 +1,6 @@
 # =============================================
-# 💍 WEDDING FUND TRACKER: NATIVE PRO UI
-# FEATURES: CUSTOM CSS TABS • NO INSTALL REQUIRED
+# 💍 WEDDING FUND TRACKER: NATIVE PRO UI (iOS GLASS EDITION)
+# FEATURES: iOS VISION GLASSMORPHISM • CUSTOM CSS TABS • NO INSTALL REQUIRED
 # =============================================
 
 import streamlit as st
@@ -92,15 +92,15 @@ def calculate_milestone_progress(amount):
     return min(max(progress, 0), 100)
 
 # =============================================
-# 🎨 PREMIUM CSS & ANIMATION ENGINE
+# 🎨 PREMIUM iOS GLASS CSS & ANIMATION ENGINE
 # =============================================
 st.set_page_config(page_title="Wedding Fund Tracker", page_icon="💍", layout="wide")
 
 def local_css():
     st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
 
     :root {
         --sage-dark: #2E5834;
@@ -109,55 +109,106 @@ def local_css():
         --gold: #C5A059;
         --text-color: #1a1a1a;
         --bg-color: #F1F8E9;
+        --ios-glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.58) 0%, rgba(255, 255, 255, 0.28) 100%);
+        --ios-glass-border: rgba(255, 255, 255, 0.75);
+        --ios-glass-shadow: 0 16px 36px -8px rgba(31, 56, 35, 0.1), inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.35);
     }
 
-    html, body, [class*="css"] { font-family: 'Inter', sans-serif; color: var(--text-color); }
+    html, body, [class*="css"] { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; 
+        color: var(--text-color); 
+    }
     
+    /* iOS AMBIENT MESH BACKGROUND (Supaya efek kaca nampak hidup) */
     .stApp {
-        background: linear-gradient(135deg, #F1F8E9 0%, #E0F2F1 50%, #E8F5E9 100%);
+        background-color: #EBF4EC;
+        background-image: 
+            radial-gradient(at 12% 18%, rgba(143, 188, 143, 0.42) 0px, transparent 50%),
+            radial-gradient(at 88% 12%, rgba(197, 160, 89, 0.28) 0px, transparent 45%),
+            radial-gradient(at 50% 55%, rgba(224, 242, 241, 0.65) 0px, transparent 55%),
+            radial-gradient(at 82% 85%, rgba(79, 121, 66, 0.25) 0px, transparent 50%),
+            linear-gradient(135deg, #F1F8E9 0%, #E0F2F1 50%, #E8F5E9 100%);
         background-attachment: fixed;
     }
 
-    /* SIDEBAR FIX */
-    [data-testid="stSidebar"] { background-color: #ffffff; border-right: 1px solid #e0e0e0; }
-    [data-testid="stSidebar"] * { color: #333333 !important; }
+    /* SIDEBAR iOS FROSTED GLASS */
+    [data-testid="stSidebar"] { 
+        background: rgba(255, 255, 255, 0.45) !important; 
+        backdrop-filter: blur(32px) saturate(190%) !important;
+        -webkit-backdrop-filter: blur(32px) saturate(190%) !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.7) !important;
+        box-shadow: 8px 0 30px rgba(0, 0, 0, 0.04);
+    }
+    [data-testid="stSidebar"] * { color: #2b2b2b !important; }
 
-    /* 🔥 CUSTOM TAB DESIGN (GAYA IPHONE) 🔥 */
-    /* Container Tab */
+    /* BORANG DEPOSIT GLASS CONTAINER */
+    [data-testid="stForm"] {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0.35) 100%) !important;
+        backdrop-filter: blur(20px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.8) !important;
+        border-radius: 24px !important;
+        padding: 20px !important;
+        box-shadow: var(--ios-glass-shadow) !important;
+    }
+
+    /* INPUT BOXES iOS GLASS */
+    div[data-baseweb="input"] > div, 
+    div[data-baseweb="select"] > div {
+        background: rgba(255, 255, 255, 0.6) !important;
+        backdrop-filter: blur(12px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.85) !important;
+        border-radius: 14px !important;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03) !important;
+        transition: all 0.25s ease;
+    }
+    div[data-baseweb="input"] > div:focus-within,
+    div[data-baseweb="select"] > div:focus-within {
+        border-color: var(--sage-primary) !important;
+        box-shadow: 0 0 0 3px rgba(79, 121, 66, 0.18) !important;
+        background: rgba(255, 255, 255, 0.85) !important;
+    }
+
+    /* 🔥 CUSTOM TAB DESIGN (iOS FLOATING GLASS DOCK) 🔥 */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
-        background-color: #ffffff;
-        padding: 10px;
+        background: rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(28px) saturate(190%);
+        -webkit-backdrop-filter: blur(28px) saturate(190%);
+        padding: 8px 10px;
         border-radius: 50px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        margin-bottom: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 0 10px 30px rgba(31, 56, 35, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+        margin-bottom: 24px;
         display: flex;
         justify-content: center;
+        flex-wrap: wrap;
     }
 
     /* Butang Tab (Belum Select) */
     .stTabs [data-baseweb="tab"] {
         background-color: transparent;
         border: none;
-        color: #666;
+        color: #4a554c;
         font-weight: 600;
         font-size: 14px;
-        padding: 8px 20px;
+        padding: 9px 22px;
         border-radius: 30px;
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     /* Butang Tab (Bila Hover) */
     .stTabs [data-baseweb="tab"]:hover {
-        background-color: #f0f0f0;
-        color: #333;
+        background-color: rgba(255, 255, 255, 0.55);
+        color: var(--sage-dark);
+        transform: translateY(-1px);
     }
 
     /* Butang Tab (SELECTED - AKTIF) */
     .stTabs [aria-selected="true"] {
-        background-color: var(--sage-primary) !important;
+        background: linear-gradient(180deg, #5d8c4e 0%, var(--sage-primary) 100%) !important;
         color: white !important;
-        box-shadow: 0 4px 10px rgba(79, 121, 66, 0.3);
+        box-shadow: 0 6px 16px rgba(79, 121, 66, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.45);
     }
 
     /* REMOVE DEFAULT RED LINE */
@@ -165,10 +216,10 @@ def local_css():
         display: none;
     }
 
-    /* ANIMATIONS (CSS ONLY) */
+    /* ANIMATIONS */
     @keyframes pulse-glow {
         0% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(197, 160, 89, 0)); }
-        50% { transform: scale(1.1); filter: drop-shadow(0 0 10px rgba(197, 160, 89, 0.5)); }
+        50% { transform: scale(1.08); filter: drop-shadow(0 6px 14px rgba(197, 160, 89, 0.45)); }
         100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(197, 160, 89, 0)); }
     }
     
@@ -190,115 +241,148 @@ def local_css():
         display: block;
         margin: 0 auto 20px auto;
         animation: bounce 2s infinite ease-in-out;
+        filter: drop-shadow(0 8px 12px rgba(0,0,0,0.08));
     }
 
     /* HEADER TEXT - FORCED CENTER */
     .header-container { text-align: center; margin-bottom: 20px; margin-top: -20px; }
     
-    /* GLASS CARD */
+    /* 💎 CORE iOS GLASS CARD 💎 */
     .glass-card {
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.9);
-        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
-        border-radius: 24px;
-        padding: 25px;
+        background: var(--ios-glass-bg);
+        backdrop-filter: blur(28px) saturate(190%);
+        -webkit-backdrop-filter: blur(28px) saturate(190%);
+        border: 1px solid var(--ios-glass-border);
+        box-shadow: var(--ios-glass-shadow);
+        border-radius: 28px;
+        padding: 26px;
         margin-bottom: 20px;
         text-align: center;
-        transition: transform 0.3s ease;
+        transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        position: relative;
+        overflow: hidden;
     }
-    .glass-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px -5px rgba(79, 121, 66, 0.15); }
+    .glass-card::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 45%;
+        background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 100%);
+        pointer-events: none;
+        border-radius: 28px 28px 0 0;
+    }
+    .glass-card:hover { 
+        transform: translateY(-5px) scale(1.005); 
+        box-shadow: 0 22px 45px -10px rgba(46, 88, 52, 0.16), inset 0 1.5px 2px 0 rgba(255, 255, 255, 1); 
+        border-color: rgba(255, 255, 255, 0.95);
+    }
 
-    .metric-val { font-size: 36px; font-weight: 800; color: var(--sage-dark); letter-spacing: -1px; margin-top: 5px;}
-    .metric-lbl { font-size: 12px; text-transform: uppercase; color: #888; letter-spacing: 1.5px; font-weight: 700; }
+    /* LIQUID GLASS PROGRESS TRACK */
+    .ios-progress-track {
+        position: relative;
+        background: rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(10px);
+        border-radius: 30px;
+        height: 36px;
+        width: 100%;
+        margin-bottom: 10px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.75);
+        box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.08);
+    }
+    .ios-progress-fill {
+        background: linear-gradient(90deg, rgba(143, 188, 143, 0.95), rgba(79, 121, 66, 0.95));
+        height: 100%;
+        border-radius: 30px;
+        box-shadow: 0 2px 12px rgba(79, 121, 66, 0.4), inset 0 2px 2px rgba(255, 255, 255, 0.5);
+        transition: width 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
 
-    /* GAMIFICATION STYLES */
+    .metric-val { font-size: 36px; font-weight: 800; color: var(--sage-dark); letter-spacing: -1px; margin-top: 5px; }
+    .metric-lbl { font-size: 12px; text-transform: uppercase; color: #5f6b61; letter-spacing: 1.5px; font-weight: 700; }
+
+    /* GAMIFICATION iOS GLASS STYLES */
     @keyframes shine {
-        0% { background-position: -200% center; }
-        100% { background-position: 200% center; }
+        0% { left: -120%; }
+        100% { left: 120%; }
     }
     
     @keyframes float {
         0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
+        50% { transform: translateY(-8px); }
     }
     
     .milestone-card {
-        background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
-        border-radius: 20px;
-        padding: 20px;
-        margin-bottom: 15px;
-        border: 2px solid #e0e0e0;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.52) 0%, rgba(255, 255, 255, 0.22) 100%);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border-radius: 26px;
+        padding: 22px;
+        margin-bottom: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.65);
+        box-shadow: var(--ios-glass-shadow);
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         position: relative;
         overflow: hidden;
+        text-align: center;
     }
     
     .milestone-card.achieved {
-        border: 2px solid;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-        background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(240,255,240,0.95));
+        border: 1.5px solid rgba(255, 255, 255, 0.95);
+        box-shadow: 0 14px 32px rgba(46, 88, 52, 0.12), inset 0 1.5px 2px rgba(255, 255, 255, 1);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(240, 255, 244, 0.45) 100%);
     }
     
     .milestone-card.achieved::before {
         content: '';
         position: absolute;
         top: 0;
-        left: -100%;
-        width: 100%;
+        left: -120%;
+        width: 80%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-        animation: shine 3s infinite;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+        transform: skewX(-20deg);
+        animation: shine 3.5s infinite;
     }
     
     .milestone-card:hover {
-        transform: translateY(-5px) scale(1.02);
-        box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        transform: translateY(-6px) scale(1.02);
+        box-shadow: 0 18px 38px rgba(46, 88, 52, 0.16), inset 0 1.5px 2px rgba(255, 255, 255, 1);
     }
     
     .milestone-icon {
         font-size: 48px;
         display: inline-block;
         margin-bottom: 10px;
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.08));
     }
     
     .milestone-card.achieved .milestone-icon {
-        animation: float 2s ease-in-out infinite;
+        animation: float 2.4s ease-in-out infinite;
     }
     
     .badge {
         display: inline-block;
         padding: 6px 16px;
         border-radius: 20px;
-        font-size: 12px;
-        font-weight: 700;
+        font-size: 11px;
+        font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 1px;
         color: white;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
-    
-    .progress-ring {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        border: 6px solid #e0e0e0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 800;
-        font-size: 16px;
-        position: relative;
-        background: white;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12), inset 0 1px 1px rgba(255,255,255,0.5);
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
     }
     
     .leaderboard-card {
-        background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
-        border-radius: 20px;
+        background: var(--ios-glass-bg);
+        backdrop-filter: blur(28px) saturate(190%);
+        -webkit-backdrop-filter: blur(28px) saturate(190%);
+        border-radius: 26px;
         padding: 25px;
-        margin-bottom: 15px;
-        border: 2px solid #e0e0e0;
+        margin-bottom: 16px;
+        border: 1px solid var(--ios-glass-border);
+        box-shadow: var(--ios-glass-shadow);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -308,25 +392,26 @@ def local_css():
     }
     
     .leaderboard-card.rank-1 {
-        background: linear-gradient(135deg, #FFF9E6, #FFFBF0);
-        border: 3px solid #FFD700;
-        box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+        background: linear-gradient(135deg, rgba(255, 251, 235, 0.72) 0%, rgba(255, 243, 199, 0.42) 100%);
+        border: 1.5px solid rgba(255, 215, 0, 0.75);
+        box-shadow: 0 14px 32px rgba(197, 160, 89, 0.22), inset 0 1.5px 2px rgba(255, 255, 255, 0.95);
     }
     
     .leaderboard-card.rank-1::before {
         content: '';
         position: absolute;
         top: 0;
-        left: -100%;
-        width: 100%;
+        left: -120%;
+        width: 80%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,215,0,0.3), transparent);
-        animation: shine 3s infinite;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+        transform: skewX(-20deg);
+        animation: shine 3.5s infinite;
     }
     
     .leaderboard-card:hover {
-        transform: translateX(5px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        transform: translateX(6px);
+        box-shadow: 0 16px 35px rgba(31, 56, 35, 0.14), inset 0 1.5px 2px rgba(255, 255, 255, 1);
     }
     
     .rank-badge {
@@ -338,31 +423,96 @@ def local_css():
         justify-content: center;
         font-size: 28px;
         font-weight: 800;
-        background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.08), inset 0 1px 2px rgba(255,255,255,0.9);
     }
     
     .rank-badge.rank-1 {
-        background: linear-gradient(135deg, #FFD700, #FFA500);
+        background: linear-gradient(135deg, #FFD700, #C5A059);
         color: white;
+        border: 1px solid rgba(255, 255, 255, 0.8);
         animation: pulse-glow 2s infinite;
     }
 
-    /* TIMELINE FEED */
-    .timeline-item { display: flex; gap: 15px; margin-bottom: 20px; align-items: flex-start; animation: fadeIn 0.5s ease-in; }
-    .timeline-icon { min-width: 45px; height: 45px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-size: 20px; border: 2px solid var(--sage-light); box-shadow: 0 4px 10px rgba(0,0,0,0.05); z-index: 2; }
-    .timeline-content { background: rgba(255, 255, 255, 0.85); border-radius: 15px; padding: 15px 20px; width: 100%; border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    /* TIMELINE FEED (iOS NOTIFICATION STYLE) */
+    .timeline-item { display: flex; gap: 15px; margin-bottom: 18px; align-items: flex-start; animation: fadeIn 0.5s ease-in; }
+    .timeline-icon { 
+        min-width: 48px; height: 48px; border-radius: 50%; 
+        background: rgba(255, 255, 255, 0.7); 
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        display: flex; align-items: center; justify-content: center; 
+        font-size: 20px; 
+        border: 1.5px solid rgba(255, 255, 255, 0.9); 
+        box-shadow: 0 6px 16px rgba(46, 88, 52, 0.1), inset 0 1px 1px rgba(255, 255, 255, 1); 
+        z-index: 2; 
+    }
+    .timeline-content { 
+        background: var(--ios-glass-bg); 
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border-radius: 22px; 
+        padding: 16px 22px; 
+        width: 100%; 
+        border: 1px solid var(--ios-glass-border); 
+        box-shadow: var(--ios-glass-shadow); 
+        transition: transform 0.25s ease;
+    }
+    .timeline-content:hover { transform: translateY(-2px); }
     .t-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
     .t-name { font-weight: 700; color: var(--sage-dark); font-size: 1.05rem; }
-    .t-amount { font-weight: 700; color: var(--gold); font-size: 1.1rem; }
-    .t-date { font-size: 0.8rem; color: #888; display: block; margin-bottom: 8px; }
-    .t-note { font-size: 0.95rem; color: #444; background: #f4f9f4; padding: 8px; border-radius: 8px; display: inline-block; }
+    .t-amount { font-weight: 800; color: var(--gold); font-size: 1.1rem; }
+    .t-date { font-size: 0.8rem; color: #667268; display: block; margin-bottom: 8px; font-weight: 500; }
+    .t-note { 
+        font-size: 0.92rem; color: #2e3b30; 
+        background: rgba(255, 255, 255, 0.5); 
+        border: 1px solid rgba(255, 255, 255, 0.75);
+        padding: 8px 12px; border-radius: 12px; display: inline-block; 
+    }
+
+    /* PLOTLY CHARTS GLASS WRAPPER */
+    [data-testid="stPlotlyChart"] {
+        background: var(--ios-glass-bg);
+        backdrop-filter: blur(26px) saturate(185%);
+        -webkit-backdrop-filter: blur(26px) saturate(185%);
+        border: 1px solid var(--ios-glass-border);
+        border-radius: 28px;
+        padding: 12px;
+        box-shadow: var(--ios-glass-shadow);
+    }
+
+    /* INFO ALERT iOS GLASS */
+    [data-testid="stAlert"] {
+        background: rgba(255, 255, 255, 0.55) !important;
+        backdrop-filter: blur(22px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(22px) saturate(180%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.85) !important;
+        border-radius: 20px !important;
+        box-shadow: var(--ios-glass-shadow) !important;
+        color: var(--sage-dark) !important;
+    }
 
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* UI BUTTONS */
-    div.stButton > button { background-color: var(--sage-primary); color: white !important; border-radius: 15px; font-weight: 700; border: none; padding: 15px; width: 100%; transition: all 0.3s; box-shadow: 0 5px 15px rgba(79, 121, 66, 0.2); }
-    div.stButton > button:hover { background-color: var(--sage-dark); transform: scale(1.02); box-shadow: 0 8px 20px rgba(79, 121, 66, 0.3); }
+    /* UI BUTTONS (GLOSSY iOS PILL BUTTONS) */
+    div.stButton > button, div[data-testid="stFormSubmitButton"] > button { 
+        background: linear-gradient(180deg, #5d8c4e 0%, var(--sage-primary) 100%) !important; 
+        color: white !important; 
+        border-radius: 18px !important; 
+        font-weight: 700 !important; 
+        border: 1px solid rgba(255, 255, 255, 0.4) !important; 
+        padding: 14px !important; 
+        width: 100%; 
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important; 
+        box-shadow: 0 8px 20px rgba(79, 121, 66, 0.28), inset 0 1.5px 1px rgba(255, 255, 255, 0.45) !important; 
+    }
+    div.stButton > button:hover, div[data-testid="stFormSubmitButton"] > button:hover { 
+        background: linear-gradient(180deg, var(--sage-primary) 0%, var(--sage-dark) 100%) !important; 
+        transform: translateY(-2px) scale(1.01) !important; 
+        box-shadow: 0 12px 25px rgba(46, 88, 52, 0.38), inset 0 1.5px 1px rgba(255, 255, 255, 0.55) !important; 
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -400,15 +550,24 @@ def predict_completion(df, target):
 # 🚀 MAIN APP
 # =============================================
 def main():
+    # Aktifkan iOS Glass CSS dari mula (termasuk skrin Login)
+    local_css()
+
     if 'logged_in' not in st.session_state: st.session_state.logged_in = False
     if 'current_user' not in st.session_state: st.session_state.current_user = ""
 
-    # --- LOGIN SCREEN ---
+    # --- LOGIN SCREEN (iOS LOCK SCREEN STYLE) ---
     if not st.session_state.logged_in:
-        st.markdown("<br><br><br>", unsafe_allow_html=True)
-        col1, col2, col3 = st.columns([1,2,1])
+        st.markdown("<br><br>", unsafe_allow_html=True)
+        col1, col2, col3 = st.columns([1, 1.4, 1])
         with col2:
-            st.markdown("<h2 style='text-align:center; color:#4F7942;'>SECURE ACCESS</h2>", unsafe_allow_html=True)
+            st.markdown("""
+            <div class='glass-card' style='padding: 35px 25px; margin-bottom: 15px;'>
+                <div style='font-size: 54px; margin-bottom: 8px;'>🔒</div>
+                <h2 style='text-align:center; color:#2E5834; font-weight:800; letter-spacing:1px; margin:0;'>SECURE ACCESS</h2>
+                <p style='color:#5f6b61; font-size:0.9rem; margin-top:6px;'>Enter your personal passkey to unlock dashboard</p>
+            </div>
+            """, unsafe_allow_html=True)
             password = st.text_input("Enter Passkey", type="password")
             if st.button("Access Dashboard"):
                 if password in USERS_DB:
@@ -423,7 +582,6 @@ def main():
         return
 
     # --- DASHBOARD LOAD ---
-    local_css()
     try:
         sheet = connect_to_sheet()
         df = pd.DataFrame(sheet.get_all_records())
@@ -478,8 +636,8 @@ def main():
 
     st.markdown(f"""
     <div style='text-align: center; width: 100%; margin-top: -10px; margin-bottom: 20px;'>
-        <p style='font-family: "Playfair Display", serif; color: #888; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 5px;'>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</p>
-        <div style='font-family: "Playfair Display", serif; font-weight: 700; font-size: 3.5rem; color: #2E5834; text-shadow: 0 4px 10px rgba(0,0,0,0.05);'>
+        <p style='font-family: "Playfair Display", serif; color: #5f6b61; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 5px;'>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</p>
+        <div style='font-family: "Playfair Display", serif; font-weight: 700; font-size: 3.5rem; color: #2E5834; text-shadow: 0 4px 15px rgba(255,255,255,0.6);'>
             {USER1_NAME} <span style='color: #C5A059; font-style: italic;'>&</span> {USER2_NAME}
         </div>
     </div>
@@ -502,15 +660,15 @@ def main():
     pct = progress * 100
     
     st.markdown(f"""
-<div class='glass-card' style='border-top: 5px solid #4F7942;'>
+<div class='glass-card' style='border-top: 2px solid rgba(255, 255, 255, 0.95);'>
 <div class='metric-lbl' style='font-size:14px; margin-bottom:15px;'>⏳ {days_left} DAYS UNTIL THE BIG DAY</div>
-<div style='position: relative; background: #e0e0e0; border-radius: 30px; height: 35px; width: 100%; margin-bottom: 10px; overflow: hidden;'>
-<div style='background: linear-gradient(90deg, #8FBC8F, #4F7942); width: {pct}%; height: 100%; border-radius: 30px;'></div>
+<div class='ios-progress-track'>
+<div class='ios-progress-fill' style='width: {pct}%;'></div>
 <div style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;'>
-<span style='color: #1a1a1a; font-weight: 700; font-size: 13px; text-shadow: 0px 0px 2px rgba(255,255,255,0.8); white-space: nowrap;'>{pct:.1f}% FUNDED</span>
+<span style='color: #1a1a1a; font-weight: 800; font-size: 13px; text-shadow: 0px 1px 4px rgba(255,255,255,0.9); white-space: nowrap;'>{pct:.1f}% FUNDED</span>
 </div>
 </div>
-<div style='color:#666; font-size:0.9rem;'>Goal: <b>RM {TARGET_AMOUNT:,.0f}</b></div>
+<div style='color:#4a554c; font-size:0.95rem;'>Goal: <b>RM {TARGET_AMOUNT:,.0f}</b></div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -532,21 +690,26 @@ def main():
         status_color = "#43a047" if progress >= exp_prog else "#e53935"
         status_text = "ON TRACK" if progress >= exp_prog else "BEHIND SCHEDULE"
         
-        st.markdown(f"<div class='glass-card' style='background: linear-gradient(135deg, {status_color}20, #ffffff); border-color:{status_color};'><h2 style='color:{status_color}; margin:0;'>{status_text}</h2><p style='color:#666;'>Your savings pace vs timeline</p></div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='glass-card' style='background: linear-gradient(135deg, {status_color}22, rgba(255,255,255,0.45)); border-color:{status_color}66;'><h2 style='color:{status_color}; margin:0; font-weight:800;'>{status_text}</h2><p style='color:#555; margin-top:5px;'>Your savings pace vs timeline</p></div>", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
-        col1.markdown(f"<div class='glass-card'><h5>💰 Actual Progress</h5><h2 style='color:#4F7942'>{progress*100:.1f}%</h2></div>", unsafe_allow_html=True)
-        col2.markdown(f"<div class='glass-card'><h5>⏳ Timeline Elapsed</h5><h2 style='color:#555'>{exp_prog*100:.1f}%</h2></div>", unsafe_allow_html=True)
+        col1.markdown(f"<div class='glass-card'><h5>💰 Actual Progress</h5><h2 style='color:#4F7942; font-weight:800;'>{progress*100:.1f}%</h2></div>", unsafe_allow_html=True)
+        col2.markdown(f"<div class='glass-card'><h5>⏳ Timeline Elapsed</h5><h2 style='color:#555; font-weight:800;'>{exp_prog*100:.1f}%</h2></div>", unsafe_allow_html=True)
 
     with tab3:
         col1, col2 = st.columns(2)
         with col1:
             pie_data = df.groupby('Nama')['Jumlah'].sum().reset_index()
             fig = px.pie(pie_data, values='Jumlah', names='Nama', hole=0.7, color='Nama', color_discrete_map={COUPLE_NAMES[0]: '#4F7942', COUPLE_NAMES[1]: '#8FBC8F'})
-            st.subheader("Contribution Ratio"); st.plotly_chart(fig, use_container_width=True)
+            fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', margin=dict(t=20, b=20, l=20, r=20))
+            st.subheader("Contribution Ratio")
+            st.plotly_chart(fig, use_container_width=True)
         with col2:
-            df_s = df.sort_values('Tarikh'); df_s['Cumulative'] = df_s.groupby('Nama')['Jumlah'].cumsum()
+            df_s = df.sort_values('Tarikh')
+            df_s['Cumulative'] = df_s.groupby('Nama')['Jumlah'].cumsum()
             fig = px.line(df_s, x='Tarikh', y='Cumulative', color='Nama', markers=True, color_discrete_map={COUPLE_NAMES[0]: '#4F7942', COUPLE_NAMES[1]: '#8FBC8F'})
-            st.subheader("Growth Trajectory"); st.plotly_chart(fig, use_container_width=True)
+            fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', margin=dict(t=20, b=20, l=20, r=20))
+            st.subheader("Growth Trajectory")
+            st.plotly_chart(fig, use_container_width=True)
 
     with tab4:
         # =============================================
@@ -576,13 +739,13 @@ def main():
                     <div style='display: flex; align-items: center; gap: 20px;'>
                         <div class='rank-badge {rank_class}'>{rank_emoji}</div>
                         <div>
-                            <div style='font-weight: 700; font-size: 22px; color: #333; margin-bottom: 5px;'>{name}</div>
+                            <div style='font-weight: 700; font-size: 22px; color: #222; margin-bottom: 5px;'>{name}</div>
                             <span class='badge' style='background: {badge_info["color"]};'>{badge_info["badge"]}</span>
                         </div>
                     </div>
                     <div style='text-align: right;'>
-                        <div style='font-weight: 800; font-size: 28px; color: #4F7942;'>RM {amount:,.2f}</div>
-                        <div style='font-size: 13px; color: #888;'>{(amount/total*100):.1f}% of total</div>
+                        <div style='font-weight: 800; font-size: 28px; color: #2E5834;'>RM {amount:,.2f}</div>
+                        <div style='font-size: 13px; color: #666; font-weight: 600;'>{(amount/total*100):.1f}% of total</div>
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -594,11 +757,11 @@ def main():
             
             if current_m:
                 st.markdown(f"""
-                <div class='glass-card' style='background: linear-gradient(135deg, {current_m["color"]}30, #ffffff);'>
+                <div class='glass-card' style='background: linear-gradient(135deg, {current_m["color"]}35, rgba(255,255,255,0.45));'>
                     <div style='font-size: 60px; margin-bottom: 10px;'>{current_m["icon"]}</div>
-                    <div style='font-weight: 700; font-size: 20px; color: #333;'>{current_m["title"]}</div>
+                    <div style='font-weight: 700; font-size: 20px; color: #222;'>{current_m["title"]}</div>
                     <span class='badge' style='background: {current_m["color"]};'>{current_m["badge"]}</span>
-                    <div style='margin-top: 15px; font-size: 24px; font-weight: 800; color: #4F7942;'>RM {total:,.2f}</div>
+                    <div style='margin-top: 15px; font-size: 24px; font-weight: 800; color: #2E5834;'>RM {total:,.2f}</div>
                 </div>
                 """, unsafe_allow_html=True)
             
@@ -608,17 +771,17 @@ def main():
                 
                 st.markdown(f"""
                 <div class='glass-card' style='margin-top: 15px;'>
-                    <div style='font-size: 14px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;'>Next Milestone</div>
+                    <div style='font-size: 13px; color: #5f6b61; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;'>Next Milestone</div>
                     <div style='font-size: 40px; margin-bottom: 10px;'>{next_m["icon"]}</div>
-                    <div style='font-weight: 700; font-size: 18px; color: #333; margin-bottom: 5px;'>{next_m["title"]}</div>
+                    <div style='font-weight: 700; font-size: 18px; color: #222; margin-bottom: 5px;'>{next_m["title"]}</div>
                     <div style='font-size: 20px; font-weight: 800; color: #C5A059; margin-bottom: 15px;'>RM {next_m["amount"]:,}</div>
-                    <div style='position: relative; background: #e0e0e0; border-radius: 20px; height: 25px; width: 100%; margin-bottom: 10px; overflow: hidden;'>
-                        <div style='background: linear-gradient(90deg, #8FBC8F, #4F7942); width: {progress_to_next}%; height: 100%; border-radius: 20px;'></div>
+                    <div class='ios-progress-track' style='height: 26px;'>
+                        <div class='ios-progress-fill' style='width: {progress_to_next}%;'></div>
                         <div style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;'>
-                            <span style='color: #1a1a1a; font-weight: 700; font-size: 12px;'>{progress_to_next:.1f}%</span>
+                            <span style='color: #1a1a1a; font-weight: 800; font-size: 12px; text-shadow: 0 1px 3px rgba(255,255,255,0.9);'>{progress_to_next:.1f}%</span>
                         </div>
                     </div>
-                    <div style='font-size: 13px; color: #666;'>RM {remaining:,.2f} to go!</div>
+                    <div style='font-size: 13px; color: #555; font-weight: 600;'>RM {remaining:,.2f} to go!</div>
                 </div>
                 """, unsafe_allow_html=True)
         
@@ -632,15 +795,15 @@ def main():
             
             is_achieved = total >= milestone["amount"]
             card_class = "achieved" if is_achieved else ""
-            opacity = "1.0" if is_achieved else "0.5"
+            opacity = "1.0" if is_achieved else "0.55"
             
             with col:
                 st.markdown(f"""
-                <div class='milestone-card {card_class}' style='opacity: {opacity}; border-color: {milestone["color"] if is_achieved else "#e0e0e0"};'>
+                <div class='milestone-card {card_class}' style='opacity: {opacity}; border-color: {milestone["color"] if is_achieved else "rgba(255,255,255,0.65)"};'>
                     <div class='milestone-icon'>{milestone["icon"]}</div>
-                    <div style='font-weight: 700; font-size: 18px; color: #333; margin-bottom: 8px;'>{milestone["title"]}</div>
+                    <div style='font-weight: 700; font-size: 18px; color: #222; margin-bottom: 8px;'>{milestone["title"]}</div>
                     <span class='badge' style='background: {milestone["color"]};'>{milestone["badge"]}</span>
-                    <div style='margin-top: 12px; font-size: 20px; font-weight: 800; color: #4F7942;'>RM {milestone["amount"]:,}</div>
+                    <div style='margin-top: 12px; font-size: 20px; font-weight: 800; color: #2E5834;'>RM {milestone["amount"]:,}</div>
                     <div style='margin-top: 10px; font-size: 24px;'>{"✅" if is_achieved else "🔒"}</div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -653,7 +816,7 @@ def main():
             monthly = st.slider("Projected Monthly Saving (Joint)", 500, 5000, 1500, 100)
             months = needed / monthly
             future = get_mys_date() + timedelta(days=int(months * 30))
-            st.markdown(f"<div class='glass-card'><h5 style='color:#666'>Estimated Completion Date</h5><h1 style='color:#C5A059; margin:10px 0;'>{future.strftime('%d %B %Y')}</h1><p>({int(months)} months from now)</p></div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='glass-card'><h5 style='color:#5f6b61; font-weight:700;'>Estimated Completion Date</h5><h1 style='color:#C5A059; margin:10px 0; font-weight:800;'>{future.strftime('%d %B %Y')}</h1><p style='color:#4a554c; font-weight:600;'>({int(months)} months from now)</p></div>", unsafe_allow_html=True)
 
     with tab6:
         st.markdown("### 📜 Recent Transactions (Last 10)")
